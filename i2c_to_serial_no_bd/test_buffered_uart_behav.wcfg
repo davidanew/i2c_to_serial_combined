@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="1,000.000 ns"></ZoomEndTime>
-      <Cursor1Time time="1,000.000 ns"></Cursor1Time>
+      <ZoomEndTime time="231.501 ns"></ZoomEndTime>
+      <Cursor1Time time="295.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="271"></NameColumnWidth>
-      <ValueColumnWidth column_width="99"></ValueColumnWidth>
+      <ValueColumnWidth column_width="94"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="16" />
+   <WVObjectSize size="19" />
    <wvobject fp_name="/test_buffered_uart/tx_signal" type="logic">
       <obj_property name="ElementShortName">tx_signal</obj_property>
       <obj_property name="ObjectShortName">tx_signal</obj_property>
@@ -84,5 +84,17 @@
    <wvobject fp_name="/test_buffered_uart/buffered_uart_i/busy" type="logic">
       <obj_property name="ElementShortName">busy</obj_property>
       <obj_property name="ObjectShortName">busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_buffered_uart/buffered_uart_i/i_uart_tx/tx_data" type="array">
+      <obj_property name="ElementShortName">tx_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_buffered_uart/buffered_uart_i/i_uart_tx/bit" type="array">
+      <obj_property name="ElementShortName">bit[3:0]</obj_property>
+      <obj_property name="ObjectShortName">bit[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_buffered_uart/buffered_uart_i/i_uart_tx/state" type="array">
+      <obj_property name="ElementShortName">state[1:0]</obj_property>
+      <obj_property name="ObjectShortName">state[1:0]</obj_property>
    </wvobject>
 </wave_config>

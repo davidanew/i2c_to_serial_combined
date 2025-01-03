@@ -180,14 +180,15 @@ module uart_tx
     if(reset)
     begin
       tx_signal <= 1;
-      count = 0;
-      bit = 0;
+      count <= 0;
+      bit <= 0;
       buffer <= 0;
       state <= UART_WAIT_TRIGGER;
       busy <= 0;
     end
     else
     begin
+      //unsigned integer next_count = count;
       case(state)
         // waiting for tx_trigger
         UART_WAIT_TRIGGER:
@@ -209,51 +210,60 @@ module uart_tx
         // We are triggered and outputting the start bit
         UART_START_BIT:
         begin
-          count = count + 1;
+          //next_count = count + 1;
           // If we have waited long enough for the start bit to end, send bit zero
-          if (count == `UART_COUNTS_PER_BIT)
+          // TODO: do else first, then we can deal with the +1 with the equality operator
+          if ((count + 1) == `UART_COUNTS_PER_BIT)
           begin            
             state <= UART_SEND_BITS;
             // Index "bit" should already be set to zero at initialisation or at end of last send
             tx_signal <= buffer [bit];
             // reset clock counter for next bit
-            count = 0;
+            count <= 0;
+          end
+          else
+          begin
+            count <= count + 1;
           end           
         end
         // We are sending (any) bit
         UART_SEND_BITS:
         begin
-          count = count + 1;
+          //count = count + 1;
           // If there has been enough clock cycles to output the next bit
-          if (count == `UART_COUNTS_PER_BIT)
+          if ( (count + 1) == `UART_COUNTS_PER_BIT)
           begin
             // If the next bit index to be written is < 8)
             if ((bit + 1) < 8)
             begin
-              // Go to the next bit index
-              bit = bit + 1;
               // Output the new bit
-              tx_signal <= buffer[bit]; 
+              tx_signal <= buffer[bit + 1]; 
+              // Go to the next bit index
+              bit <= bit + 1;
             end
             else
             begin
-                // This is a stop bit
-                state <= UART_STOP_BIT;
-                // Stop bit is high
-                tx_signal <= 1;                          
-                // Reset bit index for next data byte
-                bit = 0;
+              // This is a stop bit
+              state <= UART_STOP_BIT;
+              // Stop bit is high
+              tx_signal <= 1;                          
+              // Reset bit index for next data byte
+              bit <= 0;
             end
             // reset clock count for next bit or cycle
-            count = 0;
+            count <= 0;
           end
+          else
+          begin
+            count <= count + 1;
+          end  
         end 
         // We are outputting a the stop bit
         UART_STOP_BIT:
         begin
-          count = count + 1;
+          //count = count + 1;
           // If we have waited long enough for the stop bit to end
-          if (count == `UART_COUNTS_PER_BIT)
+          if ((count + 1) == `UART_COUNTS_PER_BIT)
           begin   
             // Now wait for trigger again      
             state <= UART_WAIT_TRIGGER;
@@ -261,8 +271,12 @@ module uart_tx
             // Not busy any more
             busy <= 0;
             // Reset clock counter for next byte
-            count = 0;
-          end           
+            count <= 0;
+          end 
+          else
+          begin
+            count <= count + 1;
+          end            
         end  
       endcase
     end  
