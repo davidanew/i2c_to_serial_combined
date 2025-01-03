@@ -1,2 +1,7 @@
 
 i2c_to_serial_no_bd/*
+lattice_i2c_to_serial_no_bd/top_Implmnt/*
+lattice_i2c_to_serial_no_bd/stdout.log
+lattice_i2c_to_serial_no_bd/stdout.log.bak
+lattice_i2c_to_serial_no_bd/synlog.tcl
+lattice_i2c_to_serial_no_bd/top_syn.prj
