@@ -12,5 +12,4 @@
 `define CLK_HALF_CYCLE = 5;
 `define CLK_FULL_CYCLE = 10;
 
-// UART frequency 2500 cycles for 9600 (lattice 48Mhz/2)
-`define UART_COUNTS_PER_BIT 1
+//`define UART_COUNTS_PER_BIT 1

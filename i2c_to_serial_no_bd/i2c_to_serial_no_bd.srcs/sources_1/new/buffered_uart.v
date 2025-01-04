@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-`include "common.v"
+//`include "common.v"
 
 
 module buffered_uart
@@ -36,6 +36,8 @@ module buffered_uart
         .busy(busy),
         .tx_signal(tx_signal)
     );
+    
+    //defparam i_uart_tx.UART_COUNTS_PER_BIT = 1;
     
     // Used for blocking tx_done and generating the shift signal  
     reg prev_busy;
@@ -152,6 +154,9 @@ endmodule
 // Outputs tx_data as serial on tx_signal
 
 module uart_tx
+  // UART frequency 2500 cycles for 9600 (lattice 48Mhz/2)
+  #(parameter UART_COUNTS_PER_BIT = 2500)
+
   (
     input clk, // Input clock : currently assumes 24MHz clock which is divided in this block to 2Mbit/sec
     input [7:0] tx_data, // The byte to be sent - latched on rising edge of clock
@@ -213,7 +218,7 @@ module uart_tx
           //next_count = count + 1;
           // If we have waited long enough for the start bit to end, send bit zero
           // TODO: do else first, then we can deal with the +1 with the equality operator
-          if ((count + 1) == `UART_COUNTS_PER_BIT)
+          if ((count + 1) == UART_COUNTS_PER_BIT)
           begin            
             state <= UART_SEND_BITS;
             // Index "bit" should already be set to zero at initialisation or at end of last send
@@ -231,7 +236,7 @@ module uart_tx
         begin
           //count = count + 1;
           // If there has been enough clock cycles to output the next bit
-          if ( (count + 1) == `UART_COUNTS_PER_BIT)
+          if ( (count + 1) == UART_COUNTS_PER_BIT)
           begin
             // If the next bit index to be written is < 8)
             if ((bit + 1) < 8)
@@ -263,7 +268,7 @@ module uart_tx
         begin
           //count = count + 1;
           // If we have waited long enough for the stop bit to end
-          if ((count + 1) == `UART_COUNTS_PER_BIT)
+          if ((count + 1) == UART_COUNTS_PER_BIT)
           begin   
             // Now wait for trigger again      
             state <= UART_WAIT_TRIGGER;

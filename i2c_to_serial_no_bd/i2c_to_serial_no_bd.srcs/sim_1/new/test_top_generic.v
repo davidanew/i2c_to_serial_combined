@@ -16,6 +16,8 @@ top_generic i_top_generic
         .sda(sda),
         .tx(tx)
     );
+    
+    defparam i_top_generic.i_buffered_uart.i_uart_tx.UART_COUNTS_PER_BIT = 1;   
 
     localparam CLK_HALF_CYCLE = 5;
     localparam CLK_FULL_CYCLE = CLK_HALF_CYCLE * 2;
