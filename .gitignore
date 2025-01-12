@@ -1,7 +1,12 @@
 
-i2c_to_serial_no_bd/*
+//i2c_to_serial_no_bd/*
 lattice_i2c_to_serial_no_bd/top_Implmnt/*
 lattice_i2c_to_serial_no_bd/stdout.log
 lattice_i2c_to_serial_no_bd/stdout.log.bak
 lattice_i2c_to_serial_no_bd/synlog.tcl
 lattice_i2c_to_serial_no_bd/top_syn.prj
+i2c_to_serial_no_bd/i2c_to_serial_no_bd.cache/*
+i2c_to_serial_no_bd/i2c_to_serial_no_bd.hw/*
+i2c_to_serial_no_bd/i2c_to_serial_no_bd.ip_user_files/*
+i2c_to_serial_no_bd/i2c_to_serial_no_bd.sim/*
+i2c_to_serial_no_bd/vivado*
