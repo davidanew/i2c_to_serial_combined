@@ -1,18 +1,7 @@
 `timescale 1ns / 1ps
 
-
-
-
-
-
-//1 is high (not inverted)
-//msb first
-
-//https://www.analog.com/en/resources/technical-articles/i2c-primer-what-is-i2c-part-1.html
-//https://www.analog.com/en/_/media/analog/en/landing-pages/technical-articles/i2c-primer-what-is-i2c-part-1-/36690.png?la=en&w=900&rev=b09418dbaac742b692bf4067eae2f346
-
-
 module i2c_example_gen
+    #(parameter I2C_COUNTS_PER_BIT = 1)
     (
         input clk,
         input reset,
@@ -32,14 +21,23 @@ module i2c_example_gen
     begin
         if(reset)
         begin
-            i2c_vector <= 2'b10;
+            i2c_vector <= 2'b11;
+            fast_counter <= 0;
+            slow_counter <= 0;            
         end
         else
         begin
-            if (fast_counter == NUM_TICKS_PER_SLOW_COUNTER)
+            if ((fast_counter + 1) == I2C_COUNTS_PER_BIT)
             begin
                 next_slow_counter = slow_counter + 1;
                 case(next_slow_counter)
+
+//1 is high (not inverted)
+//msb first
+
+//https://www.analog.com/en/resources/technical-articles/i2c-primer-what-is-i2c-part-1.html
+//https://www.analog.com/en/_/media/analog/en/landing-pages/technical-articles/i2c-primer-what-is-i2c-part-1-/36690.png?la=en&w=900&rev=b09418dbaac742b692bf4067eae2f346
+
                     //                      scl
                     //                       sda
                     // start
@@ -108,58 +106,58 @@ module i2c_example_gen
                     8'h2e: i2c_vector <= 2'b10; // SCL rise
                     8'h2f: i2c_vector <= 2'b00; // SCL fall
                     // bit 1 - 1
-                    8'h3a: i2c_vector <= 2'b01; // set data
-                    8'h3b: i2c_vector <= 2'b11; // SCL rise
-                    8'h3c: i2c_vector <= 2'b01; // SCL fall
+                    8'h30: i2c_vector <= 2'b01; // set data
+                    8'h31: i2c_vector <= 2'b11; // SCL rise
+                    8'h32: i2c_vector <= 2'b01; // SCL fall
                     // bit 0 - 0
-                    8'h3d: i2c_vector <= 2'b00; // set data
-                    8'h3e: i2c_vector <= 2'b10; // SCL rise
-                    8'h3f: i2c_vector <= 2'b00; // SCL fall
+                    8'h33: i2c_vector <= 2'b00; // set data
+                    8'h34: i2c_vector <= 2'b10; // SCL rise
+                    8'h35: i2c_vector <= 2'b00; // SCL fall
                     // ack
-                    8'h40: i2c_vector <= 2'b00; // set data
-                    8'h41: i2c_vector <= 2'b10; // SCL rise
-                    8'h42: i2c_vector <= 2'b00; // SCL fall
+                    8'h36: i2c_vector <= 2'b00; // set data
+                    8'h37: i2c_vector <= 2'b10; // SCL rise
+                    8'h38: i2c_vector <= 2'b00; // SCL fall
                     // 01010101
                     // bit 7 - 0
-                    8'h43: i2c_vector <= 2'b00; // set data
-                    8'h44: i2c_vector <= 2'b10; // SCL rise
-                    8'h45: i2c_vector <= 2'b00; // SCL fall
+                    8'h39: i2c_vector <= 2'b00; // set data
+                    8'h3a: i2c_vector <= 2'b10; // SCL rise
+                    8'h3b: i2c_vector <= 2'b00; // SCL fall
                     // bit 6 - 1
-                    8'h46: i2c_vector <= 2'b01; // set data
-                    8'h47: i2c_vector <= 2'b11; // SCL rise
-                    8'h48: i2c_vector <= 2'b01; // SCL fall
+                    8'h3c: i2c_vector <= 2'b01; // set data
+                    8'h3d: i2c_vector <= 2'b11; // SCL rise
+                    8'h3e: i2c_vector <= 2'b01; // SCL fall
                     // bit 5 - 0
-                    8'h49: i2c_vector <= 2'b00; // set data
-                    8'h4a: i2c_vector <= 2'b10; // SCL rise
-                    8'h4b: i2c_vector <= 2'b00; // SCL fall
+                    8'h3f: i2c_vector <= 2'b00; // set data
+                    8'h40: i2c_vector <= 2'b10; // SCL rise
+                    8'h41: i2c_vector <= 2'b00; // SCL fall
                     // bit 4 - 1
-                    8'h4c: i2c_vector <= 2'b01; // set data
-                    8'h4d: i2c_vector <= 2'b11; // SCL rise
-                    8'h4e: i2c_vector <= 2'b01; // SCL fall
+                    8'h42: i2c_vector <= 2'b01; // set data
+                    8'h43: i2c_vector <= 2'b11; // SCL rise
+                    8'h44: i2c_vector <= 2'b01; // SCL fall
                     // bit 3 - 0
-                    8'h4f: i2c_vector <= 2'b00; // set data
-                    8'h50: i2c_vector <= 2'b10; // SCL rise
-                    8'h51: i2c_vector <= 2'b00; // SCL fall
+                    8'h45: i2c_vector <= 2'b00; // set data
+                    8'h46: i2c_vector <= 2'b10; // SCL rise
+                    8'h47: i2c_vector <= 2'b00; // SCL fall
                     // bit 2 - 1
-                    8'h52: i2c_vector <= 2'b01; // set data
-                    8'h53: i2c_vector <= 2'b11; // SCL rise
-                    8'h54: i2c_vector <= 2'b01; // SCL fall
+                    8'h48: i2c_vector <= 2'b01; // set data
+                    8'h49: i2c_vector <= 2'b11; // SCL rise
+                    8'h4a: i2c_vector <= 2'b01; // SCL fall
                     // bit 1 - 0
-                    8'h55: i2c_vector <= 2'b00; // set data
-                    8'h56: i2c_vector <= 2'b10; // SCL rise
-                    8'h57: i2c_vector <= 2'b00; // SCL fall
+                    8'h4b: i2c_vector <= 2'b00; // set data
+                    8'h4c: i2c_vector <= 2'b10; // SCL rise
+                    8'h4d: i2c_vector <= 2'b00; // SCL fall
                     // bit 0 - 1
-                    8'h58: i2c_vector <= 2'b01; // set data
-                    8'h59: i2c_vector <= 2'b11; // SCL rise
-                    8'h5a: i2c_vector <= 2'b01; // SCL fall
+                    8'h4e: i2c_vector <= 2'b01; // set data
+                    8'h4f: i2c_vector <= 2'b11; // SCL rise
+                    8'h50: i2c_vector <= 2'b01; // SCL fall
                     // nack
-                    8'h5b: i2c_vector <= 2'b01; // set data
-                    8'h5c: i2c_vector <= 2'b11; // SCL rise
-                    8'h5d: i2c_vector <= 2'b01; // SCL fall
+                    8'h51: i2c_vector <= 2'b01; // set data
+                    8'h52: i2c_vector <= 2'b11; // SCL rise
+                    8'h53: i2c_vector <= 2'b01; // SCL fall
                     // stop
-                    8'h5e: i2c_vector <= 2'b00; // Lows before stop
-                    8'h5f: i2c_vector <= 2'b10; // SCL rise
-                    8'h60: i2c_vector <= 2'b11; // SDL rise
+                    8'h54: i2c_vector <= 2'b00; // Lows before stop
+                    8'h55: i2c_vector <= 2'b10; // SCL rise
+                    8'h56: i2c_vector <= 2'b11; // SDL rise
                 endcase
                 slow_counter <= next_slow_counter;
                 fast_counter <= 0;
