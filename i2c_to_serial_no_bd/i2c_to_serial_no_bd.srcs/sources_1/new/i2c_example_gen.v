@@ -2,50 +2,15 @@
 
 
 
-//@clk rise
-//scl
-//  sda
-//1 1
-//1 0 start
-//0 0
-//0 d
+
 
 
 //1 is high (not inverted)
 //msb first
 
-
-// reset could but default into register
-
 //https://www.analog.com/en/resources/technical-articles/i2c-primer-what-is-i2c-part-1.html
 //https://www.analog.com/en/_/media/analog/en/landing-pages/technical-articles/i2c-primer-what-is-i2c-part-1-/36690.png?la=en&w=900&rev=b09418dbaac742b692bf4067eae2f346
 
-
-/*
-
-If you're just using the array to pull out one value at a time, how about using a case statement? Granted, it's a long-winded way of doing it, but you could always write a script to write the RTL for you.
-
-reg [7:0] value;
-reg [7:0] i;
-
-always @(posedge clk or negedge rst_n) begin
-    if(!rst_n)
-        i <= 8'd0;
-    else
-        i <= i + 1;
-end
-
-always @(*) begin
-    case(i) 
-        8'h00: value = 8'd0;
-        8'h01: value = 8'd34;
-        ...
-    endcase
-endcase
-
-*/
-
-//with the above the counter could also so the wait between
 
 module i2c_example_gen
     (
@@ -55,9 +20,9 @@ module i2c_example_gen
         output sda
     );
     
-    reg [1:0] i2c_vector; // SCL is LSB
-    assign scl = i2c_vector[0];
-    assign sda = i2c_vector[1];
+    reg [1:0] i2c_vector; // SCL is MSB
+    assign scl = i2c_vector[1];
+    assign sda = i2c_vector[0];
        
     reg [31:0] fast_counter;
     reg [31:0] slow_counter;
@@ -75,7 +40,126 @@ module i2c_example_gen
             begin
                 next_slow_counter = slow_counter + 1;
                 case(next_slow_counter)
-                    8'h01: i2c_vector <= 2'b10;
+                    //                      scl
+                    //                       sda
+                    // start
+                    8'h01: i2c_vector <= 2'b10; // SDA fall
+                    8'h02: i2c_vector <= 2'b00; // SCL fall
+                    // 11001001
+                    // bit 7 - 1
+                    8'h03: i2c_vector <= 2'b01; // set data
+                    8'h04: i2c_vector <= 2'b11; // SCL rise
+                    8'h05: i2c_vector <= 2'b01; // SCL fall
+                    // bit 6 - 1
+                    8'h06: i2c_vector <= 2'b01; // set data
+                    8'h07: i2c_vector <= 2'b11; // SCL rise
+                    8'h08: i2c_vector <= 2'b01; // SCL fall
+                    // bit 5 - 0
+                    8'h09: i2c_vector <= 2'b00; // set data
+                    8'h0a: i2c_vector <= 2'b10; // SCL rise
+                    8'h0b: i2c_vector <= 2'b00; // SCL fall
+                    // bit 4 - 0
+                    8'h0c: i2c_vector <= 2'b00; // set data
+                    8'h0d: i2c_vector <= 2'b10; // SCL rise
+                    8'h0e: i2c_vector <= 2'b00; // SCL fall
+                    // bit 3 - 1
+                    8'h0f: i2c_vector <= 2'b01; // set data
+                    8'h10: i2c_vector <= 2'b11; // SCL rise
+                    8'h11: i2c_vector <= 2'b01; // SCL fall
+                    // bit 2 - 0
+                    8'h12: i2c_vector <= 2'b00; // set data
+                    8'h13: i2c_vector <= 2'b10; // SCL rise
+                    8'h14: i2c_vector <= 2'b00; // SCL fall
+                    // bit 1 - 0
+                    8'h15: i2c_vector <= 2'b00; // set data
+                    8'h16: i2c_vector <= 2'b10; // SCL rise
+                    8'h17: i2c_vector <= 2'b00; // SCL fall
+                    // bit 0 - 1
+                    8'h18: i2c_vector <= 2'b01; // set data
+                    8'h19: i2c_vector <= 2'b11; // SCL rise
+                    8'h1a: i2c_vector <= 2'b01; // SCL fall
+                    // ack
+                    8'h1b: i2c_vector <= 2'b00; // set data
+                    8'h1c: i2c_vector <= 2'b10; // SCL rise
+                    8'h1d: i2c_vector <= 2'b00; // SCL fall
+                    // 10101010
+                    // bit 7 - 1
+                    8'h1e: i2c_vector <= 2'b01; // set data
+                    8'h1f: i2c_vector <= 2'b11; // SCL rise
+                    8'h20: i2c_vector <= 2'b01; // SCL fall
+                    // bit 6 - 0
+                    8'h21: i2c_vector <= 2'b00; // set data
+                    8'h22: i2c_vector <= 2'b10; // SCL rise
+                    8'h23: i2c_vector <= 2'b00; // SCL fall
+                    // bit 5 - 1
+                    8'h24: i2c_vector <= 2'b01; // set data
+                    8'h25: i2c_vector <= 2'b11; // SCL rise
+                    8'h26: i2c_vector <= 2'b01; // SCL fall
+                    // bit 4 - 0
+                    8'h27: i2c_vector <= 2'b00; // set data
+                    8'h28: i2c_vector <= 2'b10; // SCL rise
+                    8'h29: i2c_vector <= 2'b00; // SCL fall
+                    // bit 3 - 1
+                    8'h2a: i2c_vector <= 2'b01; // set data
+                    8'h2b: i2c_vector <= 2'b11; // SCL rise
+                    8'h2c: i2c_vector <= 2'b01; // SCL fall
+                    // bit 2 - 0
+                    8'h2d: i2c_vector <= 2'b00; // set data
+                    8'h2e: i2c_vector <= 2'b10; // SCL rise
+                    8'h2f: i2c_vector <= 2'b00; // SCL fall
+                    // bit 1 - 1
+                    8'h3a: i2c_vector <= 2'b01; // set data
+                    8'h3b: i2c_vector <= 2'b11; // SCL rise
+                    8'h3c: i2c_vector <= 2'b01; // SCL fall
+                    // bit 0 - 0
+                    8'h3d: i2c_vector <= 2'b00; // set data
+                    8'h3e: i2c_vector <= 2'b10; // SCL rise
+                    8'h3f: i2c_vector <= 2'b00; // SCL fall
+                    // ack
+                    8'h40: i2c_vector <= 2'b00; // set data
+                    8'h41: i2c_vector <= 2'b10; // SCL rise
+                    8'h42: i2c_vector <= 2'b00; // SCL fall
+                    // 01010101
+                    // bit 7 - 0
+                    8'h43: i2c_vector <= 2'b00; // set data
+                    8'h44: i2c_vector <= 2'b10; // SCL rise
+                    8'h45: i2c_vector <= 2'b00; // SCL fall
+                    // bit 6 - 1
+                    8'h46: i2c_vector <= 2'b01; // set data
+                    8'h47: i2c_vector <= 2'b11; // SCL rise
+                    8'h48: i2c_vector <= 2'b01; // SCL fall
+                    // bit 5 - 0
+                    8'h49: i2c_vector <= 2'b00; // set data
+                    8'h4a: i2c_vector <= 2'b10; // SCL rise
+                    8'h4b: i2c_vector <= 2'b00; // SCL fall
+                    // bit 4 - 1
+                    8'h4c: i2c_vector <= 2'b01; // set data
+                    8'h4d: i2c_vector <= 2'b11; // SCL rise
+                    8'h4e: i2c_vector <= 2'b01; // SCL fall
+                    // bit 3 - 0
+                    8'h4f: i2c_vector <= 2'b00; // set data
+                    8'h50: i2c_vector <= 2'b10; // SCL rise
+                    8'h51: i2c_vector <= 2'b00; // SCL fall
+                    // bit 2 - 1
+                    8'h52: i2c_vector <= 2'b01; // set data
+                    8'h53: i2c_vector <= 2'b11; // SCL rise
+                    8'h54: i2c_vector <= 2'b01; // SCL fall
+                    // bit 1 - 0
+                    8'h55: i2c_vector <= 2'b00; // set data
+                    8'h56: i2c_vector <= 2'b10; // SCL rise
+                    8'h57: i2c_vector <= 2'b00; // SCL fall
+                    // bit 0 - 1
+                    8'h58: i2c_vector <= 2'b01; // set data
+                    8'h59: i2c_vector <= 2'b11; // SCL rise
+                    8'h5a: i2c_vector <= 2'b01; // SCL fall
+                    // nack
+                    8'h5b: i2c_vector <= 2'b01; // set data
+                    8'h5c: i2c_vector <= 2'b11; // SCL rise
+                    8'h5d: i2c_vector <= 2'b01; // SCL fall
+                    // stop
+                    8'h5e: i2c_vector <= 2'b00; // Lows before stop
+                    8'h5f: i2c_vector <= 2'b10; // SCL rise
+                    8'h60: i2c_vector <= 2'b11; // SDL rise
                 endcase
                 slow_counter <= next_slow_counter;
                 fast_counter <= 0;
@@ -87,50 +171,3 @@ module i2c_example_gen
         end
     end
 endmodule
-
-/*
-
-module shift_reg 
-    #(
-        parameter LEN = 8
-    )
-    (
-        input clk, //Clock input
-        input reset,  // Active high reset input
-        input [LEN-1:0] load_val, 	// Load value
-        input load_en, // Load enable
-        output out_val
-    );
-     
-    reg [LEN-1:0] ff;
-    assign out_val = ff[LEN - 1];
-
-    integer i = 0 ;
-
-    always @ (posedge clk) 
-    begin
-        if (reset)
-	    begin
-	       ff <= 0;
-	    end 
-	    else
-	    begin
-	    	if (load_en)
-	    	begin
-	      	    ff <= load_val;
-	      	end
-	      	else
-	      	begin
-                for (i = 0; i < LEN; i = i + 1)
-                begin
-                    ff[i+1] <= ff[i];
-                end
-                ff[0] <= ff[LEN - 1];
-            end
-        end
-    end
-endmodule
-
-*/
-
-
