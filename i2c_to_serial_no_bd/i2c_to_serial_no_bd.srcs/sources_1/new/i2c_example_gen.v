@@ -1,20 +1,30 @@
 `timescale 1ns / 1ps
 
 module i2c_example_gen
-    #(parameter I2C_COUNTS_PER_BIT = 1)
+    #(
+        // ICE40 has 48MHz clock
+        parameter CLK_FREQ = 48000000,
+        // Target I2C freq
+        parameter SCL_FREQ = 400000
+    )
     (
         input clk,
         input reset,
         output scl,
         output sda
     );
+    // Number of clock cycles for one SCL clock cycle in the vectors
+    localparam CLK_PER_SCL_CYCLE = 3;
+    // Number of clock cycles for one vector  
+    localparam CLK_CYCLES_PER_VECTOR = (CLK_FREQ / SCL_FREQ) / CLK_PER_SCL_CYCLE;
     
     reg [1:0] i2c_vector; // SCL is MSB
     assign scl = i2c_vector[1];
     assign sda = i2c_vector[0];
        
-    reg [31:0] fast_counter;
-    reg [31:0] slow_counter;
+    reg [31:0] fast_counter; // Number of clock cycles per vector
+    reg [31:0] slow_counter; // Vector number
+    // TODO: should vector loop around?
     integer next_slow_counter;
 
     always @(posedge clk)
@@ -27,7 +37,7 @@ module i2c_example_gen
         end
         else
         begin
-            if ((fast_counter + 1) == I2C_COUNTS_PER_BIT)
+            if ((fast_counter + 1) == CLK_CYCLES_PER_VECTOR)
             begin
                 next_slow_counter = slow_counter + 1;
                 case(next_slow_counter)
