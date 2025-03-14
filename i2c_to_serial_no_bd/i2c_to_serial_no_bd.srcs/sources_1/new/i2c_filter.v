@@ -11,6 +11,7 @@ module i2c_filter
         output reg scl_filt
     );
     localparam INTEGRAL_BITS = 4;
+    // TODO this may need to be 16
     localparam INTEGRAL_MAX = 15;
     reg[INTEGRAL_BITS-1 : 0] sda_integral;
     reg[INTEGRAL_BITS-1 : 0] scl_integral;   

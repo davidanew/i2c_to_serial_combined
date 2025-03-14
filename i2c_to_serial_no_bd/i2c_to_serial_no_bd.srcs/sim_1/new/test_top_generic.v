@@ -8,7 +8,7 @@ module test_top_generic;
     reg reset = 0;
     wire tx;
 
-top_generic i_top_generic
+    top_generic i_top_generic
     (
         .clk(clk),
         .reset(reset),
