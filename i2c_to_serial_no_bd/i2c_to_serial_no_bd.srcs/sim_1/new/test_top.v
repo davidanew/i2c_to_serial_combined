@@ -21,7 +21,8 @@
 
 
 module test_top;
-    localparam CLK_HALF_CYCLE = 5;
+    //localparam CLK_HALF_CYCLE = 5;
+    localparam CLK_HALF_CYCLE = 10; // for 50MHz clock (~48MHz)
     localparam CLK_FULL_CYCLE = CLK_HALF_CYCLE * 2; 
     
     reg clk = 0;

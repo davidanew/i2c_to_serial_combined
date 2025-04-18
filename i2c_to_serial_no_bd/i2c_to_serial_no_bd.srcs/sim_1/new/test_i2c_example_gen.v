@@ -2,7 +2,8 @@
 
 module test_i2c_example_gen;
 
-    localparam CLK_HALF_CYCLE = 5;
+//    localparam CLK_HALF_CYCLE = 5;
+    localparam CLK_HALF_CYCLE = 10; // 1/48MHz = 2.08 e-8 =~ 20ns. This will be 50MHz
     localparam CLK_FULL_CYCLE = CLK_HALF_CYCLE * 2; 
     
     reg clk = 0;
@@ -12,7 +13,7 @@ module test_i2c_example_gen;
 
     i2c_example_gen 
     #(
-    .I2C_COUNTS_PER_BIT(1)
+    //.SCL_FREQ(100000)
     )
     i_i2c_example_gen
     (

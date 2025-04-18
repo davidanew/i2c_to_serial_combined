@@ -6,6 +6,7 @@ module i2c_example_gen
         parameter CLK_FREQ = 48000000,
         // Target I2C freq
         parameter SCL_FREQ = 400000
+        // e.g for scl freq 400k and clk 48m there should be 120 clocks per scl
     )
     (
         input clk,
