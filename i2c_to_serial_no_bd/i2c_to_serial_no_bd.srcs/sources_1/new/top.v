@@ -14,7 +14,7 @@ module top
 
     i2c_example_gen 
     #(
-    .I2C_COUNTS_PER_BIT(16)
+    //.I2C_COUNTS_PER_BIT(16)
     )
     i_i2c_example_gen
     (
@@ -33,6 +33,6 @@ module top
         .tx(tx)
     );
     
-    defparam i_top_generic.i_buffered_uart.i_uart_tx.UART_COUNTS_PER_BIT = 1;     
+    //defparam i_top_generic.i_buffered_uart.i_uart_tx.UART_COUNTS_PER_BIT = 1;     
     
 endmodule

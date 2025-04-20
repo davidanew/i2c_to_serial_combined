@@ -25,6 +25,8 @@ module test_buffered_uart;
    
     initial
     begin
+        $dumpfile("test_buffered_uart.vcd"); // Dump to this file
+        $dumpvars(0, test_buffered_uart); // Dump all signals in the testbench
         $display ("INPUT_CLOCK_MHz = %f", INPUT_CLOCK_MHz); 
         //$display ("INPUT_CLOCK_GHz = %f", INPUT_CLOCK_GHz); 
         $display ("FULL_CYCLE = %f", FULL_CYCLE); 
@@ -41,10 +43,14 @@ module test_buffered_uart;
         data_valid = 1;
         #FULL_CYCLE
         data_valid = 0;
+        #100
+        $finish;
+
     end
     
     always 
     begin
         #HALF_CYCLE clk = ~clk;
+        $display ("toggle clock"); 
     end    
 endmodule

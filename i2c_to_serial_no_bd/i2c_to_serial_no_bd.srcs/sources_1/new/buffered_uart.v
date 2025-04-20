@@ -13,7 +13,12 @@ module buffered_uart
     );
 
     wire [7:0] buffer_data_out;
-    
+    // Triggers the uart (data is valid)
+    reg tx_trigger;
+    // Shift the shift register
+    reg shift;
+
+ 
     buffer i_buffer     
     (
         .clk(clk),
@@ -65,7 +70,6 @@ module buffered_uart
     // clock rise 3 - new data on shift register output and valid, this clock rise also needs to be blocked
     // clock rise 4 - all data available trigger can be valid for this rise
 
-    reg tx_trigger;
     always @(posedge clk)
     begin
         if (buffer_output_valid && !busy && !prev_busy && !prev_prev_busy)
@@ -79,7 +83,7 @@ module buffered_uart
     end        
    
     //Always shift after tx done (busy de-assertion)
-    reg shift;
+    // TODO: explain how this works
     always @(posedge clk)
     begin
         if (busy == 0 && prev_busy == 1'b1)
@@ -93,18 +97,17 @@ module buffered_uart
     end    
 endmodule
 
+// TODO: comments
 module buffer
     (
         input clk,
         input [31:0] data_in,
         input load,
-        input shift,
+        input shift, // Shift the data by one byte
         output [7:0] data_out,
         output output_valid,
         input reset
     );
-    assign data_out = data_byte_3;
-    assign output_valid = valid_3;
     reg [7:0] data_byte_3; // This will be output first
     reg [7:0] data_byte_2;
     reg [7:0] data_byte_1;    
@@ -113,6 +116,8 @@ module buffer
     reg valid_2;
     reg valid_1;    
     reg valid_0;
+    assign data_out = data_byte_3;
+    assign output_valid = valid_3;
     always @(posedge clk)
     begin
         if(reset)

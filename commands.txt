@@ -1,0 +1,8 @@
+
+$env:Path += ";C:\Xilinx\Vivado\2024.2\bin"
+
+xvlog i2c_to_serial_no_bd\i2c_to_serial_no_bd.srcs\sources_1\new\buffered_uart.v i2c_to_serial_no_bd\i2c_to_serial_no_bd.srcs\sim_1\new\test_buffered_uart.v
+xelab test_buffered_uart -s test_buffered_uart_sim
+xsim test_buffered_uart_sim --runall --wdb test_buffered_uart_sim.wdb
+
+(currently using wavetrace in vscode)
