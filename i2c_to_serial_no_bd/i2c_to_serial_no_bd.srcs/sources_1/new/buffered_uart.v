@@ -109,41 +109,24 @@ module buffer
         output output_valid,
         input reset
     );
-    reg [7:0] data_byte_7; // This will be output last
-    reg [7:0] data_byte_6;
-    reg [7:0] data_byte_5;
-    reg [7:0] data_byte_4;
     reg [7:0] data_byte_3; // This will be output first
     reg [7:0] data_byte_2;
     reg [7:0] data_byte_1;    
     reg [7:0] data_byte_0;
-    reg valid_7;
-    reg valid_6;
-    reg valid_5;
-    reg valid_4;
     reg valid_3;
     reg valid_2;
     reg valid_1;    
     reg valid_0;
-    assign data_out = data_byte_7;
-    assign output_valid = valid_7;
-
+    assign data_out = data_byte_3;
+    assign output_valid = valid_3;
     always @(posedge clk)
     begin
         if(reset)
         begin
-            data_byte_7 <= 0;
-            data_byte_6 <= 0;
-            data_byte_5 <= 0;
-            data_byte_4 <= 0;
             data_byte_3 <= 0;
             data_byte_2 <= 0;
             data_byte_1 <= 0;    
             data_byte_0 <= 0;
-            valid_7 <= 0;
-            valid_6 <= 0;
-            valid_5 <= 0;
-            valid_4 <= 0;
             valid_3 <= 0;
             valid_2 <= 0;
             valid_1 <= 0;    
@@ -151,21 +134,10 @@ module buffer
         end
         else if(load)
         begin
-            // Shift existing data down by 4 bytes
-            data_byte_7 <= data_byte_3;
-            data_byte_6 <= data_byte_2;
-            data_byte_5 <= data_byte_1;
-            data_byte_4 <= data_byte_0;
-            // Load new data into the top 4 bytes
             data_byte_3 <= data_in[31:24];
             data_byte_2 <= data_in[23:16];
             data_byte_1 <= data_in[15:8];    
             data_byte_0 <= data_in[7:0];
-            // Update validity flags
-            valid_7 <= valid_3;
-            valid_6 <= valid_2;
-            valid_5 <= valid_1;
-            valid_4 <= valid_0;
             valid_3 <= 1'b1;
             valid_2 <= 1'b1;
             valid_1 <= 1'b1;    
@@ -173,20 +145,10 @@ module buffer
         end
         else if (shift)
         begin
-            // Shift all bytes down by one
-            data_byte_7 <= data_byte_6;
-            data_byte_6 <= data_byte_5;
-            data_byte_5 <= data_byte_4;
-            data_byte_4 <= data_byte_3;
             data_byte_3 <= data_byte_2;
             data_byte_2 <= data_byte_1;
             data_byte_1 <= data_byte_0;    
             data_byte_0 <= 0;
-            // Shift validity flags
-            valid_7 <= valid_6;
-            valid_6 <= valid_5;
-            valid_5 <= valid_4;
-            valid_4 <= valid_3;
             valid_3 <= valid_2;
             valid_2 <= valid_1;
             valid_1 <= valid_0;    
@@ -332,5 +294,4 @@ module uart_tx
   end
 endmodule
 
-
-
+ 
