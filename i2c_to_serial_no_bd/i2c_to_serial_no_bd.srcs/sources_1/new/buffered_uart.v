@@ -98,61 +98,55 @@ module buffered_uart
     end    
 endmodule
 
-// TODO: comments
 module buffer
     (
         input clk,
         input [31:0] data_in,
         input load,
-        input shift, // Shift the data by one byte
+        input shift,
         output [7:0] data_out,
         output output_valid,
         input reset
     );
-    reg [7:0] data_byte_3; // This will be output first
-    reg [7:0] data_byte_2;
-    reg [7:0] data_byte_1;    
-    reg [7:0] data_byte_0;
-    reg valid_3;
-    reg valid_2;
-    reg valid_1;    
-    reg valid_0;
-    assign data_out = data_byte_3;
-    assign output_valid = valid_3;
+    reg [7:0] data_bytes [7:0];  // 8 bytes of storage
+    reg [7:0] valid_bits;        // Valid bits for each byte
+    reg [2:0] write_ptr;         // Points to next write location
+    reg [2:0] read_ptr;          // Points to current read location
+    integer i;  // Moved declaration to module level
+    
+    assign data_out = data_bytes[read_ptr];
+    assign output_valid = valid_bits[read_ptr];
+
     always @(posedge clk)
     begin
         if(reset)
         begin
-            data_byte_3 <= 0;
-            data_byte_2 <= 0;
-            data_byte_1 <= 0;    
-            data_byte_0 <= 0;
-            valid_3 <= 0;
-            valid_2 <= 0;
-            valid_1 <= 0;    
-            valid_0 <= 0;
+            for(i = 0; i < 8; i = i + 1) begin
+                data_bytes[i] <= 8'b0;
+            end
+            valid_bits <= 8'b0;
+            write_ptr <= 3'b0;
+            read_ptr <= 3'b0;
         end
         else if(load)
         begin
-            data_byte_3 <= data_in[31:24];
-            data_byte_2 <= data_in[23:16];
-            data_byte_1 <= data_in[15:8];    
-            data_byte_0 <= data_in[7:0];
-            valid_3 <= 1'b1;
-            valid_2 <= 1'b1;
-            valid_1 <= 1'b1;    
-            valid_0 <= 1'b1;          
+            // Load 4 bytes from input
+            data_bytes[write_ptr] <= data_in[31:24];
+            data_bytes[(write_ptr + 1) % 8] <= data_in[23:16];
+            data_bytes[(write_ptr + 2) % 8] <= data_in[15:8];
+            data_bytes[(write_ptr + 3) % 8] <= data_in[7:0];
+            
+            valid_bits[write_ptr] <= 1'b1;
+            valid_bits[(write_ptr + 1) % 8] <= 1'b1;
+            valid_bits[(write_ptr + 2) % 8] <= 1'b1;
+            valid_bits[(write_ptr + 3) % 8] <= 1'b1;
+            
+            write_ptr <= (write_ptr + 4) % 8;
         end
         else if (shift)
         begin
-            data_byte_3 <= data_byte_2;
-            data_byte_2 <= data_byte_1;
-            data_byte_1 <= data_byte_0;    
-            data_byte_0 <= 0;
-            valid_3 <= valid_2;
-            valid_2 <= valid_1;
-            valid_1 <= valid_0;    
-            valid_0 <= 0;                  
+            valid_bits[read_ptr] <= 1'b0;
+            read_ptr <= (read_ptr + 1) % 8;
         end
     end
 endmodule
@@ -294,4 +288,3 @@ module uart_tx
   end
 endmodule
 
- 

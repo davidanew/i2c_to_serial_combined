@@ -64,8 +64,10 @@ module test_buffered_uart;
         data = "abcd";
         data_valid = 1;
         #FULL_CYCLE
+        data = "efgh";
+        #FULL_CYCLE
         data_valid = 0;
-        #10000000
+        #100000000
         $finish;
 
     end
