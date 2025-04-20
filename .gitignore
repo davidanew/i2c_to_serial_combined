@@ -13,3 +13,4 @@ i2c_to_serial_no_bd/vivado*
 xelab.*
 xsim*
 xvlog*
+test_buffered_uart_sim.wdb
