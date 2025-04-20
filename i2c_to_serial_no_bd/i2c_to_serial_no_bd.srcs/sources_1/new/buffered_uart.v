@@ -15,8 +15,9 @@ module buffered_uart
         output tx_signal
     );
 
+    // Output from the buffer to the uart tx
     wire [7:0] buffer_data_out;
-    // Triggers the uart (data is valid)
+    // Triggers the uart (if data is valid)
     reg tx_trigger;
     // Shift the shift register
     reg shift;
@@ -44,9 +45,7 @@ module buffered_uart
         .busy(busy),
         .tx_signal(tx_signal)
     );
-    
-    //defparam i_uart_tx.UART_COUNTS_PER_BIT = 1;
-    
+        
     // Used for blocking tx_done and generating the shift signal  
     reg prev_busy;
     reg prev_prev_busy;
@@ -65,13 +64,13 @@ module buffered_uart
         end
     end  
 
-    // Generate tx trigger
-    // problem if uart becomes un busy while old data is on buffer output
-    // only do a tx trigger if enough time has passed since busy has cleared
-    // clock rise 1 - busy is cleared and tx goes to wait for trigger
-    // clock rise 2 - shift signal is generated - race condition could happen here - block this by using prev_busy
-    // clock rise 3 - new data on shift register output and valid, this clock rise also needs to be blocked
-    // clock rise 4 - all data available trigger can be valid for this rise
+    // Generate tx trigger if the data from the buffer is valid
+    // Problem is uart becomes un busy while old data is on buffer output
+    // Only do a tx trigger if enough time has passed since busy has cleared, hence a long interlock is needed
+    // Clock rise 1 - busy is cleared and tx goes to wait for trigger
+    // Clock rise 2 - shift signal is generated - race condition could happen here - block this by using prev_busy
+    // Clock rise 3 - new data on shift register output and valid, this clock rise also needs to be blocked
+    // Clock rise 4 - all data available trigger can be valid for this rise
 
     always @(posedge clk)
     begin
@@ -85,8 +84,7 @@ module buffered_uart
         end
     end        
    
-    //Always shift after tx done (busy de-assertion)
-    // TODO: explain how this works
+    // Always shift after tx done (busy de-assertion)
     always @(posedge clk)
     begin
         if (busy == 0 && prev_busy == 1'b1)
