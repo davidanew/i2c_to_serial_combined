@@ -6,9 +6,12 @@
 module buffered_uart
     (
         input clk,
+        //Data input for the buffered uart (4 bytes) 
         input [31:0]data,
+        // Input data is valid on this cycle
         input data_valid,
         input reset,
+        // The uart output
         output tx_signal
     );
 
@@ -159,8 +162,8 @@ endmodule
 // Outputs tx_data as serial on tx_signal
 
 module uart_tx
-  // UART frequency 2500 cycles for 9600 (lattice 48Mhz/2)
-  #(parameter UART_COUNTS_PER_BIT = 2500)
+  // UART frequency 5000 cycles for 9600 (lattice 48Mhz)
+  #(parameter UART_COUNTS_PER_BIT = 5000)
 
   (
     input clk, // Input clock : currently assumes 24MHz clock which is divided in this block to 2Mbit/sec

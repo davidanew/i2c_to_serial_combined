@@ -1,0 +1,28 @@
+[*]
+[*] GTKWave Analyzer v3.3.90 (w)1999-2018 BSI
+[*] Sun Apr 20 18:05:25 2025
+[*]
+[dumpfile] "C:\Users\david\fpga\i2c_to_serial_combined\test_buffered_uart.vcd"
+[dumpfile_mtime] "Sun Apr 20 18:01:19 2025"
+[dumpfile_size] 25325968
+[savefile] "C:\Users\david\fpga\i2c_to_serial_combined\test_buffered_uart.gtkw"
+[timestart] 0
+[size] 1536 793
+[pos] -130 -9
+*-30.840794 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] test_buffered_uart.
+[treeopen] test_buffered_uart.i_buffered_uart.
+[sst_width] 197
+[signals_width] 198
+[sst_expanded] 1
+[sst_vpaned_height] 467
+@28
+test_buffered_uart.clk
+@820
+test_buffered_uart.data[31:0]
+@28
+test_buffered_uart.i_buffered_uart.tx_signal
+@821
+test_buffered_uart.uart_rx_data_out[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

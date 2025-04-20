@@ -9,3 +9,7 @@ i2c_to_serial_no_bd/i2c_to_serial_no_bd.hw/*
 i2c_to_serial_no_bd/i2c_to_serial_no_bd.ip_user_files/*
 i2c_to_serial_no_bd/i2c_to_serial_no_bd.sim/*
 i2c_to_serial_no_bd/vivado*
+/xsim.dir
+xelab.*
+xsim*
+xvlog*
