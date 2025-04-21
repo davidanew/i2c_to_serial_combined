@@ -27,8 +27,9 @@ module i2c_example_gen
     assign sda = i2c_vector[0];
        
     reg [31:0] fast_counter; // Number of clock cycles per vector
-    reg [31:0] slow_counter; // Vector number
-    // TODO: should vector loop around?
+    //reg [31:0] slow_counter; // Vector number
+    // Reduced size so the outputs loops
+    reg [15:0] slow_counter; // Vector number
     integer next_slow_counter;
 
     always @(posedge clk)
