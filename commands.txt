@@ -9,3 +9,24 @@ $env:Path += ";C:\gtkwave64\bin"
 gtkwave test_buffered_uart.vcd test_buffered_uart.gtkw
 
 
+
+
+===============
+
+
+$env:Path += ";C:\Xilinx\Vivado\2024.2\bin"
+
+xvlog i2c_to_serial_no_bd\i2c_to_serial_no_bd.srcs\sources_1\new\top.v `
+ i2c_to_serial_no_bd\i2c_to_serial_no_bd.srcs\sim_1\new\test_top.v `
+ i2c_to_serial_no_bd\i2c_to_serial_no_bd.srcs\sources_1\new\i2c_example_gen.v `
+ i2c_to_serial_no_bd\i2c_to_serial_no_bd.srcs\sources_1\new\i2c_filter.v `
+ i2c_to_serial_no_bd\i2c_to_serial_no_bd.srcs\sources_1\new\i2c_process.v `
+ i2c_to_serial_no_bd\i2c_to_serial_no_bd.srcs\sources_1\new\message_decoder.v `
+ i2c_to_serial_no_bd\i2c_to_serial_no_bd.srcs\sources_1\new\top_generic.v
+
+xelab test_top -s test_top_sim
+xsim test_top_sim --runall
+
+$env:Path += ";C:\gtkwave64\bin"
+gtkwave test_top.vcd test_top.gtkw
+

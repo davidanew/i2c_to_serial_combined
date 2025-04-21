@@ -8,9 +8,6 @@ module top
         output sda,
         output tx
     );
-    wire scl;
-    wire sda;
-    wire tx;
 
     i2c_example_gen 
     #(

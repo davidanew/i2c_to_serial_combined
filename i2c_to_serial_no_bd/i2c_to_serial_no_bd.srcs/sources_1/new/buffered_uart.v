@@ -108,10 +108,10 @@ module buffer
         output output_valid,
         input reset
     );
-    reg [7:0] data_bytes [7:0];  // 8 bytes of storage
-    reg [7:0] valid_bits;        // Valid bits for each byte
-    reg [2:0] write_ptr;         // Points to next write location
-    reg [2:0] read_ptr;          // Points to current read location
+    reg [7:0] data_bytes [63:0];  // Changed to 64 bytes of storage
+    reg [63:0] valid_bits;        // Changed to 64 valid bits
+    reg [5:0] write_ptr;          // Changed to 6 bits for 0-63 addressing
+    reg [5:0] read_ptr;           // Changed to 6 bits for 0-63 addressing
     integer i;  // Moved declaration to module level
     
     assign data_out = data_bytes[read_ptr];
@@ -121,32 +121,32 @@ module buffer
     begin
         if(reset)
         begin
-            for(i = 0; i < 8; i = i + 1) begin
+            for(i = 0; i < 64; i = i + 1) begin  // Changed loop to 64
                 data_bytes[i] <= 8'b0;
             end
-            valid_bits <= 8'b0;
-            write_ptr <= 3'b0;
-            read_ptr <= 3'b0;
+            valid_bits <= 64'b0;  // Changed to 64 bits
+            write_ptr <= 6'b0;    // Changed to 6 bits
+            read_ptr <= 6'b0;     // Changed to 6 bits
         end
         else if(load)
         begin
             // Load 4 bytes from input
             data_bytes[write_ptr] <= data_in[31:24];
-            data_bytes[(write_ptr + 1) % 8] <= data_in[23:16];
-            data_bytes[(write_ptr + 2) % 8] <= data_in[15:8];
-            data_bytes[(write_ptr + 3) % 8] <= data_in[7:0];
+            data_bytes[(write_ptr + 1) % 64] <= data_in[23:16];  // Changed modulo to 64
+            data_bytes[(write_ptr + 2) % 64] <= data_in[15:8];   // Changed modulo to 64
+            data_bytes[(write_ptr + 3) % 64] <= data_in[7:0];    // Changed modulo to 64
             
             valid_bits[write_ptr] <= 1'b1;
-            valid_bits[(write_ptr + 1) % 8] <= 1'b1;
-            valid_bits[(write_ptr + 2) % 8] <= 1'b1;
-            valid_bits[(write_ptr + 3) % 8] <= 1'b1;
+            valid_bits[(write_ptr + 1) % 64] <= 1'b1;  // Changed modulo to 64
+            valid_bits[(write_ptr + 2) % 64] <= 1'b1;  // Changed modulo to 64
+            valid_bits[(write_ptr + 3) % 64] <= 1'b1;  // Changed modulo to 64
             
-            write_ptr <= (write_ptr + 4) % 8;
+            write_ptr <= (write_ptr + 4) % 64;  // Changed modulo to 64
         end
         else if (shift)
         begin
             valid_bits[read_ptr] <= 1'b0;
-            read_ptr <= (read_ptr + 1) % 8;
+            read_ptr <= (read_ptr + 1) % 64;  // Changed modulo to 64
         end
     end
 endmodule

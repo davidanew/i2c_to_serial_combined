@@ -1,0 +1,302 @@
+#-----------------------------------------------------------
+# Vivado v2024.2 (64-bit)
+# SW Build 5239630 on Fri Nov 08 22:35:27 MST 2024
+# IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
+# SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
+# Start of session at: Mon Apr 21 09:32:51 2025
+# Process ID         : 10868
+# Current directory  : C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.runs/synth_1
+# Command line       : vivado.exe -log top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
+# Log file           : C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.runs/synth_1/top.vds
+# Journal file       : C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.runs/synth_1\vivado.jou
+# Running On         : LAPTOP-MSI
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26100
+# Processor Detail   : Intel(R) Core(TM) i7-10870H CPU @ 2.20GHz
+# CPU Frequency      : 2208 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 34246 MB
+# Swap memory        : 9126 MB
+# Total Virtual      : 43373 MB
+# Available Virtual  : 29130 MB
+#-----------------------------------------------------------
+source top.tcl -notrace
+Command: synth_design -top top -part xc7a35tcpg236-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35t'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 21164
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 774.375 ; gain = 477.727
+---------------------------------------------------------------------------------
+INFO: [Synth 8-11241] undeclared symbol 'buffer_output_valid', assumed default net type 'wire' [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/buffered_uart.v:33]
+WARNING: [Synth 8-11121] redeclaration of ANSI port 'scl' is not allowed [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/top.v:11]
+WARNING: [Synth 8-11121] redeclaration of ANSI port 'sda' is not allowed [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/top.v:12]
+WARNING: [Synth 8-11121] redeclaration of ANSI port 'tx' is not allowed [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/top.v:13]
+INFO: [Synth 8-6157] synthesizing module 'top' [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/top.v:3]
+INFO: [Synth 8-6157] synthesizing module 'i2c_example_gen' [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/i2c_example_gen.v:3]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/i2c_example_gen.v:44]
+INFO: [Synth 8-6155] done synthesizing module 'i2c_example_gen' (0#1) [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/i2c_example_gen.v:3]
+INFO: [Synth 8-6157] synthesizing module 'top_generic' [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/top_generic.v:3]
+INFO: [Synth 8-6157] synthesizing module 'i2c_filter' [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/i2c_filter.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'i2c_filter' (0#1) [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/i2c_filter.v:4]
+INFO: [Synth 8-6157] synthesizing module 'i2c_process' [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/i2c_process.v:7]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/i2c_process.v:50]
+INFO: [Synth 8-6155] done synthesizing module 'i2c_process' (0#1) [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/i2c_process.v:7]
+INFO: [Synth 8-6157] synthesizing module 'message_decoder' [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/message_decoder.v:7]
+INFO: [Synth 8-6155] done synthesizing module 'message_decoder' (0#1) [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/message_decoder.v:7]
+INFO: [Synth 8-6157] synthesizing module 'buffered_uart' [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/buffered_uart.v:6]
+INFO: [Synth 8-6157] synthesizing module 'buffer' [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/buffered_uart.v:101]
+INFO: [Synth 8-6155] done synthesizing module 'buffer' (0#1) [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/buffered_uart.v:101]
+INFO: [Synth 8-6157] synthesizing module 'uart_tx' [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/buffered_uart.v:156]
+INFO: [Synth 8-6155] done synthesizing module 'uart_tx' (0#1) [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/buffered_uart.v:156]
+INFO: [Synth 8-6155] done synthesizing module 'buffered_uart' (0#1) [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/buffered_uart.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'top_generic' (0#1) [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/top_generic.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'top' (0#1) [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/top.v:3]
+WARNING: [Synth 8-6014] Unused sequential element next_slow_counter_reg was removed.  [C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/i2c_example_gen.v:43]
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 919.527 ; gain = 622.879
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 919.527 ; gain = 622.879
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a35tcpg236-1
+INFO: [Device 21-403] Loading part xc7a35tcpg236-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 919.527 ; gain = 622.879
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'i2c_process'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'uart_tx'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+    STATE_I2C_WAIT_START |                              000 |                             0000
+STATE_I2C_STARTED_SCL_HIGH |                              001 |                             0001
+  STATE_I2C_DATA_SCL_LOW |                              010 |                             0010
+ STATE_I2C_DATA_SCL_HIGH |                              011 |                             0011
+      STATE_I2C_WAIT_ACK |                              100 |                             0100
+  STATE_I2C_ACK_SCL_HIGH |                              101 |                             0101
+STATE_I2C_DATA7_OR_START_SCL_LOW |                              110 |                             0110
+STATE_I2C_DATA7_OR_START_SCL_HIGH |                              111 |                             0111
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'i2c_process'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+       UART_WAIT_TRIGGER |                               00 |                               00
+          UART_START_BIT |                               01 |                               01
+          UART_SEND_BITS |                               10 |                               10
+           UART_STOP_BIT |                               11 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'uart_tx'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:10 ; elapsed = 00:00:10 . Memory (MB): peak = 919.527 ; gain = 622.879
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   32 Bit       Adders := 2     
+	   2 Input    7 Bit       Adders := 3     
+	   2 Input    6 Bit       Adders := 2     
+	   2 Input    5 Bit       Adders := 1     
+	   2 Input    4 Bit       Adders := 5     
+	   2 Input    3 Bit       Adders := 1     
++---Registers : 
+	               64 Bit    Registers := 1     
+	               32 Bit    Registers := 1     
+	                8 Bit    Registers := 67    
+	                6 Bit    Registers := 2     
+	                4 Bit    Registers := 4     
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 1     
+	                1 Bit    Registers := 12    
++---Muxes : 
+	   2 Input   64 Bit        Muxes := 2     
+	   2 Input   32 Bit        Muxes := 1     
+	   8 Input   32 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 195   
+	   8 Input    8 Bit        Muxes := 3     
+	   2 Input    4 Bit        Muxes := 4     
+	   8 Input    4 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 9     
+	   3 Input    3 Bit        Muxes := 1     
+	   4 Input    3 Bit        Muxes := 1     
+	   8 Input    3 Bit        Muxes := 2     
+	   2 Input    2 Bit        Muxes := 2     
+	   4 Input    2 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 10    
+	   8 Input    1 Bit        Muxes := 4     
+	   4 Input    1 Bit        Muxes := 8     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 90 (col length:60)
+BRAMs: 100 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:16 ; elapsed = 00:00:24 . Memory (MB): peak = 1105.246 ; gain = 808.598
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+ROM: Preliminary Mapping Report
++------------+------------------------------+---------------+----------------+
+|Module Name | RTL Object                   | Depth x Width | Implemented As | 
++------------+------------------------------+---------------+----------------+
+|top         | i_i2c_example_gen/i2c_vector | 128x2         | LUT            | 
++------------+------------------------------+---------------+----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:24 . Memory (MB): peak = 1105.246 ; gain = 808.598
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:17 ; elapsed = 00:00:24 . Memory (MB): peak = 1110.773 ; gain = 814.125
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 1281.410 ; gain = 984.762
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 1281.410 ; gain = 984.762
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 1281.410 ; gain = 984.762
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 1281.410 ; gain = 984.762
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 1281.410 ; gain = 984.762
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 1281.410 ; gain = 984.762
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |BUFG   |     1|
+|2     |CARRY4 |    40|
+|3     |LUT1   |     6|
+|4     |LUT2   |    20|
+|5     |LUT3   |    15|
+|6     |LUT4   |    44|
+|7     |LUT5   |   132|
+|8     |LUT6   |   245|
+|9     |MUXF7  |    71|
+|10    |MUXF8  |    32|
+|11    |FDRE   |   658|
+|12    |FDSE   |    14|
+|13    |IBUF   |     2|
+|14    |OBUF   |     3|
++------+-------+------+
+
+Report Instance Areas: 
++------+----------------------+----------------+------+
+|      |Instance              |Module          |Cells |
++------+----------------------+----------------+------+
+|1     |top                   |                |  1283|
+|2     |  i_i2c_example_gen   |i2c_example_gen |   121|
+|3     |  i_top_generic       |top_generic     |  1156|
+|4     |    i_buffered_uart   |buffered_uart   |   994|
+|5     |      i_buffer        |buffer          |   861|
+|6     |      i_uart_tx       |uart_tx         |   128|
+|7     |    i_i2c_filter      |i2c_filter      |    27|
+|8     |    i_i2c_process     |i2c_process     |   108|
+|9     |    i_message_decoder |message_decoder |    27|
++------+----------------------+----------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 1281.410 ; gain = 984.762
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 5 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 1281.410 ; gain = 984.762
+Synthesis Optimization Complete : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 1281.410 ; gain = 984.762
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 1294.566 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 143 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1404.441 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: 8b7257fd
+INFO: [Common 17-83] Releasing license: Synthesis
+37 Infos, 5 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:22 ; elapsed = 00:00:32 . Memory (MB): peak = 1404.441 ; gain = 1111.750
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1404.441 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/david/fpga/i2c_to_serial_combined/i2c_to_serial_no_bd/i2c_to_serial_no_bd.runs/synth_1/top.dcp' has been generated.
+INFO: [Vivado 12-24828] Executing command : report_utilization -file top_utilization_synth.rpt -pb top_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Mon Apr 21 09:33:26 2025...

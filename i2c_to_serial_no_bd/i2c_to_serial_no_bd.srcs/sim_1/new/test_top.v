@@ -21,15 +21,27 @@
 
 
 module test_top;
-    //localparam CLK_HALF_CYCLE = 5;
-    localparam CLK_HALF_CYCLE = 10; // for 50MHz clock (~48MHz)
-    localparam CLK_FULL_CYCLE = CLK_HALF_CYCLE * 2; 
+    localparam INPUT_CLOCK_MHz = 48.0;
+    localparam FULL_CYCLE = 1000.0 / INPUT_CLOCK_MHz;
+    localparam HALF_CYCLE = FULL_CYCLE / 2.0;
+
+    localparam UART_RX_BAUD = 9600.0;
+    // What the period would be for a normal clock for this
+    localparam UART_RX_PERIOD_NOMINAL = 1000000000/UART_RX_BAUD;
+    // Actual clock period for uart rx needs to be 16x less and div 2 for half cycle
+    localparam UART_RX_HALF_CYCLE = UART_RX_PERIOD_NOMINAL/32;
     
     reg clk = 0;
     reg reset = 0;
     wire scl;
     wire sda;
     wire tx; 
+    // clock for test only uart rx
+    reg uart_rx_clk = 0;
+    // For test only uart data out
+    wire [7:0] uart_rx_data_out;
+
+    // TODO: make call fomat consistant
 
     top i_top
     (
@@ -40,17 +52,45 @@ module test_top;
         .tx(tx)
     );
 
+    // Just used for checking the output
+    uart_rx i_uart_rx
+        (.clk(uart_rx_clk),
+        .reset(reset),
+        .serial_in(tx),
+        .data_out(uart_rx_data_out),
+        .data_ready());  
+  
     always 
     begin
-        #CLK_HALF_CYCLE clk <= ~clk;
+        #HALF_CYCLE clk <= ~clk;
     end 
+
+    // Clock for output reader
+    always
+    begin
+        #UART_RX_HALF_CYCLE uart_rx_clk = ~uart_rx_clk;
+    end
     
     initial
     begin
-        #CLK_HALF_CYCLE
+
+        $dumpfile("test_top.vcd"); // Dump to this file
+        $dumpvars(0, test_top); // Dump all signals in the testbench
+        $display ("INPUT_CLOCK_MHz = %f", INPUT_CLOCK_MHz); 
+        $display ("FULL_CYCLE = %f", FULL_CYCLE); 
+        $display ("HALF_CYCLE = %f", HALF_CYCLE);
+
+        $display ("Test uart rx baud rate = %f", UART_RX_BAUD); 
+        $display ("Nominal clock period for above = %f", UART_RX_PERIOD_NOMINAL); 
+        $display ("Half clock period (16x less and half period) = %f", UART_RX_HALF_CYCLE);     
+
+        #HALF_CYCLE
         reset = 1;
-        #CLK_FULL_CYCLE    
+        #FULL_CYCLE    
         reset = 0;
-    end; 
+
+        #100000000
+        $finish;
+    end 
 
 endmodule

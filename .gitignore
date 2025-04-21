@@ -15,3 +15,4 @@ xsim*
 xvlog*
 test_buffered_uart_sim.wdb
 *.vcd
+*.wdb
