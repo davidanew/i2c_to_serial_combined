@@ -36,7 +36,7 @@ module top
 
     top_generic i_top_generic
     (
-        .clk(reset),
+        .clk(int_osc),
         .reset(reset),
         .scl(IOB_37a),
         .sda(IOT_36b),
