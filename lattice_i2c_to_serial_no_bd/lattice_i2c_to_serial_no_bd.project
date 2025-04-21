@@ -4,7 +4,7 @@ Version=Lattice Semiconductor Corporation iCEcube - Release: 2020.12.27943 - Bui
 ProjectName=top
 Vendor=SiliconBlue
 Synthesis=synplify
-ProjectVFiles=top.v=work,../i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/buffered_uart.v=work,../i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/common.v=work,../i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/i2c_filter.v=work,../i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/i2c_process.v=work,../i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/message_decoder.v=work,../i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/top_generic.v=work
+ProjectVFiles=top.v=work,../i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/buffered_uart.v=work,../i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/common.v=work,../i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/i2c_filter.v=work,../i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/i2c_process.v=work,../i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/message_decoder.v=work,../i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/top_generic.v=work,../i2c_to_serial_no_bd/i2c_to_serial_no_bd.srcs/sources_1/new/i2c_example_gen.v
 ProjectCFiles=
 CurImplementation=top_Implmnt
 Implementations=top_Implmnt
@@ -66,9 +66,9 @@ DevicePower=
 NetlistFile=top_Implmnt/top.edf
 AdditionalEDIFFile=
 IPEDIFFile=
-DesignLib=
-DesignView=
-DesignCell=
+DesignLib=top_Implmnt/sbt/netlist/oadb-top
+DesignView=_rt
+DesignCell=top
 SynthesisSDCFile=top_Implmnt/top.scf
 UserPinConstraintFile=
 UserSDCFile=

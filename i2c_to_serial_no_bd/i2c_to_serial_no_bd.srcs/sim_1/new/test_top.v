@@ -21,7 +21,7 @@
 
 
 module test_top;
-    localparam INPUT_CLOCK_MHz = 48.0;
+    localparam INPUT_CLOCK_MHz = 24.0;
     localparam FULL_CYCLE = 1000.0 / INPUT_CLOCK_MHz;
     localparam HALF_CYCLE = FULL_CYCLE / 2.0;
 

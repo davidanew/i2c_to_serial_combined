@@ -3,7 +3,10 @@
 module i2c_example_gen
     #(
         // ICE40 has 48MHz clock
-        parameter CLK_FREQ = 48000000,
+        //parameter CLK_FREQ = 48000000,
+        // Clock had to be divided by 2
+        parameter CLK_FREQ = 24000000,
+
         // Target I2C freq
         parameter SCL_FREQ = 400000
         // e.g for scl freq 400k and clk 48m there should be 120 clocks per scl

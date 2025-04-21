@@ -155,7 +155,8 @@ endmodule
 
 module uart_tx
   // UART frequency 5000 cycles for 9600 (lattice 48Mhz)
-  #(parameter UART_COUNTS_PER_BIT = 5000)
+  // UART frequency 2500 cycles for 9600 (lattice 24Mhz)
+  #(parameter UART_COUNTS_PER_BIT = 2500)
 
   (
     input clk, // Input clock : currently assumes 24MHz clock which is divided in this block to 2Mbit/sec
