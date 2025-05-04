@@ -104,49 +104,70 @@ module buffer
         input [31:0] data_in,
         input load,
         input shift,
-        output [7:0] data_out,
+        output reg [7:0] data_out,
         output output_valid,
         input reset
     );
-    reg [7:0] data_bytes [63:0];  // Changed to 64 bytes of storage
-    reg [63:0] valid_bits;        // Changed to 64 valid bits
-    reg [5:0] write_ptr;          // Changed to 6 bits for 0-63 addressing
-    reg [5:0] read_ptr;           // Changed to 6 bits for 0-63 addressing
-    integer i;  // Moved declaration to module level
+    // Four separate block RAMs for parallel write
+    (* syn_ramstyle = "block_ram" *) reg [7:0] data_bytes0 [0:15];  // For bytes 0,4,8,...
+    (* syn_ramstyle = "block_ram" *) reg [7:0] data_bytes1 [0:15];  // For bytes 1,5,9,...
+    (* syn_ramstyle = "block_ram" *) reg [7:0] data_bytes2 [0:15];  // For bytes 2,6,10,...
+    (* syn_ramstyle = "block_ram" *) reg [7:0] data_bytes3 [0:15];  // For bytes 3,7,11,...
     
-    assign data_out = data_bytes[read_ptr];
+    reg [63:0] valid_bits;
+    reg [5:0] write_ptr;
+    reg [5:0] read_ptr;
+    
+    wire [3:0] bank_select = read_ptr[1:0];  // Which RAM bank to read from
+    wire [3:0] write_bank = write_ptr[1:0];  // Which RAM bank we're writing to
+    wire [3:0] ram_addr = read_ptr[5:2];     // Address within the RAM bank
+    wire [3:0] write_addr = write_ptr[5:2];  // Write address within RAM bank
+
+    // Read port mux
+    always @(posedge clk)
+    begin
+        case(bank_select)
+            2'b00: data_out <= data_bytes0[ram_addr];
+            2'b01: data_out <= data_bytes1[ram_addr];
+            2'b10: data_out <= data_bytes2[ram_addr];
+            2'b11: data_out <= data_bytes3[ram_addr];
+        endcase
+    end
+    
+    // Write logic for all banks
+    always @(posedge clk)
+    begin
+        if(load)
+        begin
+            data_bytes0[write_addr] <= data_in[31:24];
+            data_bytes1[write_addr] <= data_in[23:16];
+            data_bytes2[write_addr] <= data_in[15:8];
+            data_bytes3[write_addr] <= data_in[7:0];
+        end
+    end
+    
     assign output_valid = valid_bits[read_ptr];
 
     always @(posedge clk)
     begin
         if(reset)
         begin
-            for(i = 0; i < 64; i = i + 1) begin  // Changed loop to 64
-                data_bytes[i] <= 8'b0;
-            end
-            valid_bits <= 64'b0;  // Changed to 64 bits
-            write_ptr <= 6'b0;    // Changed to 6 bits
-            read_ptr <= 6'b0;     // Changed to 6 bits
+            valid_bits <= 64'b0;
+            write_ptr <= 6'b0;
+            read_ptr <= 6'b0;
         end
         else if(load)
         begin
-            // Load 4 bytes from input
-            data_bytes[write_ptr] <= data_in[31:24];
-            data_bytes[(write_ptr + 1) % 64] <= data_in[23:16];  // Changed modulo to 64
-            data_bytes[(write_ptr + 2) % 64] <= data_in[15:8];   // Changed modulo to 64
-            data_bytes[(write_ptr + 3) % 64] <= data_in[7:0];    // Changed modulo to 64
-            
             valid_bits[write_ptr] <= 1'b1;
-            valid_bits[(write_ptr + 1) % 64] <= 1'b1;  // Changed modulo to 64
-            valid_bits[(write_ptr + 2) % 64] <= 1'b1;  // Changed modulo to 64
-            valid_bits[(write_ptr + 3) % 64] <= 1'b1;  // Changed modulo to 64
-            
-            write_ptr <= (write_ptr + 4) % 64;  // Changed modulo to 64
+            valid_bits[(write_ptr + 1) % 64] <= 1'b1;
+            valid_bits[(write_ptr + 2) % 64] <= 1'b1;
+            valid_bits[(write_ptr + 3) % 64] <= 1'b1;
+            write_ptr <= (write_ptr + 4) % 64;
         end
         else if (shift)
         begin
             valid_bits[read_ptr] <= 1'b0;
-            read_ptr <= (read_ptr + 1) % 64;  // Changed modulo to 64
+            read_ptr <= (read_ptr + 1) % 64;
         end
     end
 endmodule
