@@ -60,7 +60,7 @@ HookTo3rdPartyTextEditor=
 
 [top_Implmnt]
 DeviceFamily=iCE40
-Device=LP640
+Device=LP1K
 DevicePackage=SWG16TR
 DevicePower=
 NetlistFile=top_Implmnt/top.edf
