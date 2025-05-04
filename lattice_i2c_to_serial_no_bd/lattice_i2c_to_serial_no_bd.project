@@ -59,9 +59,9 @@ FloorPlannerShowFanOutNets=yes
 HookTo3rdPartyTextEditor=
 
 [top_Implmnt]
-DeviceFamily=iCE40UP
-Device=5K
-DevicePackage=SG48
+DeviceFamily=iCE40
+Device=LP640
+DevicePackage=SWG16TR
 DevicePower=
 NetlistFile=top_Implmnt/top.edf
 AdditionalEDIFFile=
@@ -82,7 +82,7 @@ OperationRange=Commercial
 TypicalCustomTemperature=25
 WorstCustomTemperature=85
 BestCustomTemperature=0
-IOBankVoltages=topBank,3.3 bottomBank,2.5
-derValue=1.32445
+IOBankVoltages=topBank,3.3 bottomBank,2.5 leftBank,2.5 rightBank,2.5
+derValue=1.03369
 TimingPathNumberStick=0
 
